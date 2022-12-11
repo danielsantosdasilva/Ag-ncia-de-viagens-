@@ -6,12 +6,15 @@ class UserController{
         this.login;
     }
 
-    start(){
-        if(!localStorage.getItem('users')){
-            localStorage.setItem('users','{}')
-        }
-        this.users = JSON.parse(localStorage.getItem('users'))
-    }
+    // start(){
+    //     if(!localStorage.getItem('users')){
+    //         localStorage.setItem('users','{}')
+    //     }
+    //     this.users = JSON.parse(localStorage.getItem('users'))
+    //     Object.values(this.users).forEach((v=>{
+    //         let user = new User(v._id)
+    //     }))
+    // }
 
     addLine(user){
         let tr = document.createElement('tr');
@@ -54,7 +57,7 @@ class UserController{
                 let userObj = JSON.parse(tr.dataset.user);
                 let user = new User(userObj._id,userObj._name,userObj._photo,userObj._email,userObj._phone,userObj._admin,userObj._password);
                 delete this.users[user.getId()];
-                localStorage.setItem('users',JSON.stringify(this.users))
+                // localStorage.setItem('users',JSON.stringify(this.users))
                 tr.replaceWith('');
                 if(this.login.getId()==user.getId()){
                     alert('Faça o login com outro usuário!')
@@ -77,10 +80,10 @@ class UserController{
         })
     }
 
-    attUsers(key,value){
-        this.users[key] = value;
-        localStorage.setItem('users', JSON.stringify(this.users))
-    }
+    // attUsers(key,value){
+    //     this.users[key] = value;
+    //     localStorage.setItem('users', JSON.stringify(this.users))
+    // }
 
     register(){
         let formEl = document.querySelector('.register');
@@ -123,13 +126,13 @@ class UserController{
         }
         if(fileEl.files.length == 0){
             user.setPhoto('img/icon.jpg');
-            this.attUsers(user.getId(),user)
+            //this.attUsers(user.getId(),user)
             this.addLine(user)
             this.closeForm(document.querySelector('form.register'),document.querySelector('.form-add'))
         }else{
             this.readPhoto(fileEl.files[0]).then((result)=>{
                 user.setPhoto(result)
-                this.attUsers(user.getId(),user)
+                //this.attUsers(user.getId(),user)
                 this.addLine(user)
                 this.closeForm(document.querySelector('form.register'),document.querySelector('.form-add'))
             },(e)=>{
@@ -195,13 +198,13 @@ class UserController{
         let files = elements.photo.files;
         if(files.length == 0){
             user.setPhoto(userObj._photo)
-            this.attUsers(user.getId(),user)
+            //this.attUsers(user.getId(),user)
             this.attRows(selectedUser[0],user)
             this.closeForm(document.querySelector('form.edit'),document.querySelector('.form-edit'))
         }else{
             this.readPhoto(files[0]).then((result)=>{
                 user.setPhoto(result)
-                this.attUsers(user.getId(),user)
+                //this.attUsers(user.getId(),user)
                 this.attRows(selectedUser[0],user)
                 this.closeForm(document.querySelector('form.edit'),document.querySelector('.form-edit'))
             },(e)=>{
